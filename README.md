@@ -16,5 +16,5 @@ access_token_secret = ""<br/>
 
 # python file for what pupose
 
-username-info ... to print the basic information for the user
-tweet-content ... to reply to the tweet how have mention me and using #withrvr in the tweet
+username-info ... to print the basic information for the user<br/>
+tweet-content ... to reply to the tweet how have mention me and using #withrvr in the tweet<br/>
