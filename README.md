@@ -10,3 +10,10 @@ consumer_key = ""<br/>
 consumer_secret = ""<br/>
 access_token = ""<br/>
 access_token_secret = ""<br/>
+
+<br/>
+<br/>
+# python file for what pupose
+
+username-info ... to print the basic information for the user
+tweet-content ... to reply to the tweet how have mention me and using #withrvr in the tweet
