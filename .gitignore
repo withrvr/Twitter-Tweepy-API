@@ -1,7 +1,9 @@
 __pycache__
-
-api_keys.py
-
 .vscode
 
+# my api keys are here.... add yours... 
+# by creating this file and adding vatiables and value
+api_keys.py
+
+# my testing fiel
 testing.py

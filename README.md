@@ -1,20 +1,28 @@
-# Twitter-API
+# Twitter-API ... repo ???
 
 Twitter-API using python to do diffrent stuff
 <br/>
 <br/>
 
-# api_key.py ( add yours api keys and tokens )
+# Which file does what
 
-consumer_key = ""<br/>
-consumer_secret = ""<br/>
-access_token = ""<br/>
-access_token_secret = ""<br/>
+-   username-info.py :- to print the basic information of the user<br/>
+-   tweet-content.py :- to reply to the tweet how have mention me and using #withrvr ( or any ) in the tweet
 
-<br/>
-<br/>
+<br>
 
-# python file for what pupose
+# How to execute ( or Steps to Follow)
 
-username-info ... to print the basic information for the user<br/>
-tweet-content ... to reply to the tweet how have mention me and using #withrvr in the tweet<br/>
+-   Fork and pull - OR - download this repo
+-   Download python
+-   `pip install tweepy` ( Download tweepy module )
+-   api_key.py ( create and add your keys here )
+
+```
+consumer_key = ""
+consumer_secret = ""
+access_token = ""
+access_token_secret = ""
+```
+
+-   python any_file_name.py
