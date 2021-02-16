@@ -6,12 +6,14 @@ Twitter-API using python to do diffrent stuff
 
 # Which file does what
 
+## <u>Static Files:-</u>
+
 -   config_tweepy.py
     -   connect to twitter api using keys and creatig api object
 -   api_keys.py
     -   content api's keys and tokens variable with values
 
-<br><hr>
+## <u>Dynamic Files ( means run this file for corresponding results ):-</u>
 
 -   username_info.py
     -   to print the basic information of the user
