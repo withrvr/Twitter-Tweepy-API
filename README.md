@@ -6,8 +6,17 @@ Twitter-API using python to do diffrent stuff
 
 # Which file does what
 
--   username-info.py :- to print the basic information of the user<br/>
--   tweet-content.py :- to reply to the tweet how have mention me and using #withrvr ( or any ) in the tweet
+-   config_tweepy.py
+    -   connect to twitter api using keys and creatig api object
+-   api_keys.py
+    -   content api's keys and tokens variable with values
+
+<br><hr>
+
+-   username_info.py
+    -   to print the basic information of the user
+-   mentioned_me_with_hashtag.py.py
+    -   to reply to the tweet how have added #withrvr ( can change ) and mentioned you ( my case @withrvr ) in the tweet
 
 <br>
 
@@ -25,4 +34,4 @@ access_token = ""
 access_token_secret = ""
 ```
 
--   python any_file_name.py
+-   Now run :- `python File_Name.py`

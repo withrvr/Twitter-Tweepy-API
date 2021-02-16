@@ -3,7 +3,10 @@ __pycache__
 
 # my api keys are here.... add yours... 
 # by creating this file and adding vatiables and value
-api_keys.py
+python-code/api_keys.py
 
-# my testing fiel
-testing.py
+# my testing files
+testing1.py
+testing2.py
+foo.py
+foo.json
