@@ -7,9 +7,9 @@ try:
     user = api.get_user(user_name)
 
     # uncoment below code to save the user data in foo.json file
-    import json
-    with open('foo.json', 'w') as file:
-        json.dump(user._json, file, indent=4)
+    # import json
+    # with open('foo.json', 'w') as file:
+    #     json.dump(user._json, file, indent=4)
 
     print()
     print("Name                   :- ", user.name)
