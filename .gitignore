@@ -5,8 +5,9 @@ __pycache__
 # by creating this file and adding vatiables and value
 api_keys.py
 
-# my testing files
-testing1.py
-testing2.py
-foo.py
-foo.json
+# all testing files
+testing*.py
+try.py
+
+# all foo files
+foo.*
