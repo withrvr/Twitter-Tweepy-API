@@ -46,3 +46,6 @@ access_token_secret = ""
     -   to print the basic information of the user
 -   mentioned_me_with_hashtag.py.py
     -   to reply to the tweet how have added #withrvr ( can change ) and mentioned you ( my case @withrvr ) in the tweet
+-   search_hashtag_info.py.py
+    -   make csv file of searched hashtag
+    -   can be more than one ( make using and or logic )
