@@ -8,14 +8,14 @@
 	"
 >
 	<div class="container">
-		<a class="navbar-brand" href="{% url 'Home-Page' %}">
+		<a class="navbar-brand" href="{% url 'Core_App:Main-Home-Page' %}">
 			<img
-				src="{% static 'logo.png' %}"
+				src="{% static 'images/logo.png' %}"
 				style="border-radius: 20%; height: 40px"
 				class="img-fluid"
 			/>
 		</a>
-		<a href="{% url 'Home-Page' %}" class="navbar-brand fs-3">
+		<a href="{% url 'Core_App:Main-Home-Page' %}" class="navbar-brand fs-3">
 			Twitter Bot
 		</a>
 
@@ -35,7 +35,9 @@
 
 			<!-- Left side Nav-Link -->
 			<div class="navbar-nav me-auto mb-lg-0">
-				<a href="{% url 'Home-Page' %}" class="nav-link"> Home </a>
+				<a href="{% url 'Core_App:Home-Page' %}" class="nav-link">
+					Home
+				</a>
 			</div>
 		</div>
 	</div>

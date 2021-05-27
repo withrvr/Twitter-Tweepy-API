@@ -1,0 +1,15 @@
+{% extends 'Core_Base_Template.html' %} {% block Core_Content %}
+<!---->
+{% load static %}
+
+<!-- Title -->
+{% block title %}
+<title>404 error - 1Link</title>
+{% endblock title %}
+<div class="container mb-5 mt-3 text-center">
+	<img src="{% static 'images/Are_You_sure_about_that.gif' %}" alt="" />
+	<h1>404</h1>
+	<h1>Page Not Found</h1>
+</div>
+
+{% endblock Core_Content %}
