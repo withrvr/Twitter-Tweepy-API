@@ -1,0 +1,42 @@
+{% load static %}
+<nav
+	class="
+		navbar navbar-expand-sm navbar-dark
+		bg-dark
+		sticky-top
+		justify-content-between
+	"
+>
+	<div class="container">
+		<a class="navbar-brand" href="{% url 'Home-Page' %}">
+			<img
+				src="{% static 'logo.png' %}"
+				style="border-radius: 20%; height: 40px"
+				class="img-fluid"
+			/>
+		</a>
+		<a href="{% url 'Home-Page' %}" class="navbar-brand fs-3">
+			Twitter Bot
+		</a>
+
+		<button
+			class="navbar-toggler"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#navbarNavAltMarkup"
+			aria-controls="navbarNavAltMarkup"
+			aria-expanded="false"
+			aria-label="Toggle navigation"
+		>
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<!-- Solution left right is :- me-auto mb-lg-0 -->
+
+			<!-- Left side Nav-Link -->
+			<div class="navbar-nav me-auto mb-lg-0">
+				<a href="{% url 'Home-Page' %}" class="nav-link"> Home </a>
+			</div>
+		</div>
+	</div>
+</nav>
