@@ -8,4 +8,6 @@ urlpatterns = [
     # Core_App
     path('', include('Core_App.urls')),
 
+    # Features_App
+    path('', include('Features_App.urls')),
 ]

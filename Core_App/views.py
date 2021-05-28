@@ -14,12 +14,12 @@ class Main_Home_View(RedirectView):
 
 
 class Home_View(TemplateView):
-    template_name = 'Home_Template.html'
+    template_name = 'Core_App/Home_Template.html'
 
 
 class Lorem_Ipsum_View(TemplateView):
-    template_name = 'Lorem_Ipsum_Template.html'
+    template_name = 'Core_App/Lorem_Ipsum_Template.html'
 
 
 def Handle_404_Error_View(request, exception=None, *args, **kwargs):
-    return render(request, '404_Error_Template.html')
+    return render(request, 'Core_App/404_Error_Template.html')

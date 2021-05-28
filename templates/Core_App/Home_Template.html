@@ -1,0 +1,24 @@
+{% extends 'Core_Base_Template.html' %}
+
+<!-- Title -->
+{% load static %} {% block title %}
+<title>Home Page</title>
+{% endblock title %} {% block Core_Content %}
+
+<div class="container mt-3 mb-5 text-center">
+	<h1 class="mb-4">Options</h1>
+	<div class="col-md-6 mx-auto">
+		<div class="d-flex flex-column gap-2">
+			<a
+				href="{% url 'Features_App:User-Info-Page' %}"
+				class="p-2 btn btn-lg btn-success"
+			>
+				User Info
+			</a>
+			<a href="#" class="p-2 btn btn-lg btn-success">Flex item 2</a>
+			<a href="#" class="p-2 btn btn-lg btn-success">Flex item 3</a>
+		</div>
+	</div>
+</div>
+
+{% endblock Core_Content %}
