@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     # our apps
     'Core_App.apps.CoreAppConfig',
     'Features_App.apps.FeaturesAppConfig',
+
+    # 3rd party extension
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

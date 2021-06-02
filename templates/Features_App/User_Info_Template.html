@@ -1,0 +1,60 @@
+{% extends 'Core_Base_Template.html' %}
+
+<!-- Title -->
+{% block title %}
+<title>Home Page</title>
+{% endblock title %} {% block Core_Content %}
+
+<div class="container mt-3 mb-5">
+	<form method="GET">
+		<div class="input-group mb-3">
+			<span class="input-group-text" id="twitter-username-text">
+				twitter.com/
+			</span>
+			<input
+				name="username"
+				type="text"
+				class="form-control"
+				id="twitter-username-label"
+				aria-describedby="twitter-username-text"
+				placeholder="username"
+			/>
+		</div>
+	</form>
+	<div class="text-center">
+		{% if user_status == "user_not_enter" %}
+		<h3>Enter Username</h3>
+		{% elif user_status == "user_not_found" %}
+		<h3>
+			User Not Found
+			<br />
+			Enter Proper Username
+		</h3>
+		{% elif user_status == "user_enter" %}
+
+		<div class="d-flex justify-content-center gap-2">
+			<input
+				type="button"
+				value="Download Full Data"
+				id="download-full-user-info"
+				class="btn btn-success"
+			/>
+		</div>
+
+		<div>{{ user }}</div>
+		<div id="download-data" style="display: none">{{ user }}</div>
+		{% endif %}
+	</div>
+</div>
+
+{% block scripts %} {{ block.super }}
+<!--
+<script
+	async
+	src="https://platform.twitter.com/widgets.js"
+	charset="utf-8"
+></script>
+-->
+{% if user_status == "user_enter" %}
+<script></script>
+{% endif %} {% endblock scripts %} {% endblock Core_Content %}

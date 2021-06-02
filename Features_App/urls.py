@@ -8,7 +8,5 @@ from .views import (
 app_name = 'Features_App'
 
 urlpatterns = [
-    # home page
     path('user-info/', User_Info_View.as_view(), name='User-Info-Page'),
-
 ]

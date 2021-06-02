@@ -3,7 +3,7 @@
 
 
 import pandas as pd
-from config_tweepy import api, tweepy
+from .config_tweepy import api, tweepy
 import sys
 
 

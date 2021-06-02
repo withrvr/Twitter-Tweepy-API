@@ -1,4 +1,4 @@
-from config_tweepy import api, tweepy
+from .config_tweepy import api, tweepy
 
 try:
     print()
@@ -31,7 +31,7 @@ except tweepy.TweepError as e:
 
 except Exception as e:
 
-    from error_msg import exception_error
+    from .error_msg import exception_error
     exception_error(e)
 
 finally:

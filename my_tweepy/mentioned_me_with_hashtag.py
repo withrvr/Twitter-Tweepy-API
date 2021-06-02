@@ -3,7 +3,7 @@ this py code
 reply to the tweet which added #withrvr ( can change ) and mention you ( in my case @withrvr ) in the tweet
 """
 
-from config_tweepy import api  # , tweepy
+from .config_tweepy import api  # , tweepy
 
 try:
 

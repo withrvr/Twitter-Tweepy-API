@@ -2,7 +2,7 @@
 # for twitter api connection to key and creatig api object
 
 import tweepy
-import api_keys
+from . import api_keys
 
 # change your api_keys in api_keys.py
 # taking my keys form the py file
