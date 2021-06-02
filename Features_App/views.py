@@ -8,19 +8,19 @@ class User_Info_View(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        not_enter = 'user_not_enter'
 
         # getting username
-        username = self.request.GET.get('username', not_enter)
+        username = self.request.GET.get('username', None)
 
-        if username == not_enter:
-            context["user_status"] = not_enter
+        if username == None or username == "":
+            context["user_status"] = 'user_not_enter'
         else:
             context["user_status"] = 'user_enter'
             try:
                 response = api.get_user(username)
                 json_responce = response._json
                 context["user"] = json_responce
+                context["user_json"] = json.dumps(json_responce, indent=4)
             except tweepy.TweepError as e:
                 context["user_status"] = 'user_not_found'
 

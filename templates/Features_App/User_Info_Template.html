@@ -1,9 +1,11 @@
-{% extends 'Core_Base_Template.html' %}
+{% extends 'Core_Base_Template.html' %} {% load static %}
 
 <!-- Title -->
-{% block title %}
-<title>Home Page</title>
-{% endblock title %} {% block Core_Content %}
+{% block title %} {% if user_status == "user_enter" %}
+<title>@{{ user.screen_name }} - User Info</title>
+{% else %}
+<title>User Info</title>
+{% endif %} {% endblock title %} {% block Core_Content %}
 
 <div class="container mt-3 mb-5">
 	<form method="GET">
@@ -32,29 +34,73 @@
 		</h3>
 		{% elif user_status == "user_enter" %}
 
-		<div class="d-flex justify-content-center gap-2">
-			<input
-				type="button"
-				value="Download Full Data"
-				id="download-full-user-info"
-				class="btn btn-success"
-			/>
+		<div class="table-responsive text-center">
+			<a
+				href="https://twitter.com/{{ user.screen_name }}"
+				target="_blank"
+			>
+				<img
+					src="{{ user.profile_image_url }}"
+					alt="@{{ user.screen_name }} profile picture"
+					class="img-fluid"
+				/>
+			</a>
+			<table class="table table-borderless table-hover">
+				<tbody>
+					<tr>
+						<th scope="row">Display Name</th>
+						<td>{{ user.name }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Username</th>
+						<td>{{ user.screen_name }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Followers</th>
+						<td>{{ user.followers_count }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Following</th>
+						<td>{{ user.friends_count }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Verified</th>
+						<td>{{ user.verified }}</td>
+					</tr>
+					<tr>
+						<th scope="row">No of Tweets</th>
+						<td>{{ user.statuses_count }}</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
-		<div>{{ user }}</div>
-		<div id="download-data" style="display: none">{{ user }}</div>
+		<div class="d-flex align-items-end gap-2">
+			<a
+				href="https://twitter.com/{{ user.screen_name }}"
+				target="_blank"
+				class="btn btn-success ms-auto"
+			>
+				See User on Twitter
+			</a>
+			<input
+				type="button"
+				value="Download Json file"
+				class="btn btn-success"
+				onclick="onDownload()"
+			/>
+		</div>
 		{% endif %}
 	</div>
 </div>
 
-{% block scripts %} {{ block.super }}
-<!--
-<script
-	async
-	src="https://platform.twitter.com/widgets.js"
-	charset="utf-8"
-></script>
--->
-{% if user_status == "user_enter" %}
-<script></script>
+{% block scripts %} {{ block.super }} {% if user_status == "user_enter" %}
+<script src="{% static 'js/download_data.js' %}"></script>
+<script type="text/javascript">
+	const user = "{{user_json|escapejs}}";
+
+	function onDownload() {
+		download(user, "{{ user.screen_name }}-user-info.json", "text/json");
+	}
+</script>
 {% endif %} {% endblock scripts %} {% endblock Core_Content %}
