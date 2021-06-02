@@ -21,7 +21,11 @@ class User_Info_View(TemplateView):
                 json_responce = response._json
                 context["user"] = json_responce
                 context["user_json"] = json.dumps(json_responce, indent=4)
-            except tweepy.TweepError as e:
+            except tweepy.TweepError as error:
                 context["user_status"] = 'user_not_found'
+                context["user_error"] = error
+                print()
+                print(error)
+                print()
 
         return context

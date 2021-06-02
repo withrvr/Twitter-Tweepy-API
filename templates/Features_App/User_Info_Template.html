@@ -27,11 +27,11 @@
 		{% if user_status == "user_not_enter" %}
 		<h3>Enter Username</h3>
 		{% elif user_status == "user_not_found" %}
-		<h3>
-			User Not Found
-			<br />
-			Enter Proper Username
+		<h3 class="my-3">
+			<div>Error:</div>
+			<div>{{ user_error }}</div>
 		</h3>
+
 		{% elif user_status == "user_enter" %}
 
 		<div class="table-responsive text-center">
