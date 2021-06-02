@@ -2,20 +2,20 @@
 # for twitter api connection to key and creatig api object
 
 import tweepy
-from . import api_keys
-
+import os
 # change your api_keys in api_keys.py
 # taking my keys form the py file
 # so that i can change at any time
 # and its known to me only
-consumer_key = api_keys.consumer_key
-consumer_secret = api_keys.consumer_secret
-access_token = api_keys.access_token
-access_token_secret = api_keys.access_token_secret
+CONSUMER_KEY = os.environ.get('TTI_CONSUMER_KEY')
+CONSUMER_SECRET = os.environ.get('TTI_CONSUMER_SECRET')
+ACCESS_TOKEN = os.environ.get('TTI_ACCESS_TOKEN')
+ACCESS_TOKEN_SECRET = os.environ.get('TTI_ACCESS_TOKEN_SECRET')
+BEARER_TOKEN = os.environ.get('TTI_BEARER_TOKEN')
 
 # create authentication for accessing Twitter
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
 # initialize Tweepy API
 # api = tweepy.API(auth)

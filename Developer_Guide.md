@@ -4,14 +4,13 @@
 
 -   [config_tweepy.py](./my_tweepy/config_tweepy.py)
     -   connect to twitter api using keys and creatig api object
--   [api_keys.py](./my_tweepy/api_keys.py)
-    -   content api's keys and tokens variable ( create your own )
+-   Set this as environment variables
     -   ```
-        consumer_key = "your_key_value"
-        consumer_secret = "your_key_value"
-        access_token = "your_key_value"
-        access_token_secret = "your_key_value"
-        bearer_token = "your_key_value"
+        TTI_CONSUMER_KEY = "your_key_value"
+        TTI_CONSUMER_SECRET = "your_key_value"
+        TTI_ACCESS_TOKEN = "your_key_value"
+        TTI_ACCESS_TOKEN_SECRET = "your_key_value"
+        TTI_BEARER_TOKEN = "your_key_value"
         ```
 
 ## Dynamic Files ( does some stuff ) :
