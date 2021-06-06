@@ -4,6 +4,61 @@ import json
 import requests
 
 
+class Compare_Users_View(TemplateView):
+    template_name = 'Features_App/Compare_Users_Template.html'
+
+    def parse_as_tags_array(self, somestring):
+        # remove spaces and split with ','
+        somestring = somestring.replace(" ", "").split(",")
+        # remove black string if content in the array.. ex ['', '', ]
+        somearray = ' '.join(somestring).split()
+        # remove dupicate values
+        somearray = list(set(somearray))
+        return somearray
+
+    def find_users_followers(self, users):
+        users = self.parse_as_tags_array(users)
+
+        users_found = []
+        users_notfound = []
+        users_followers = []
+
+        for user in users:
+            try:
+                user_responce = api.get_user(user)._json
+                users_found.append(user_responce["screen_name"])
+                users_followers.append(user_responce["followers_count"])
+            except:
+                users_notfound.append(user)
+
+        return users_found, users_notfound, users_followers
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        users = self.request.GET.get('users', None)
+
+        if users in (None, ""):
+            context["status"] = 'not_enter'
+        else:
+            context["status"] = 'enter'
+            try:
+
+                users_found, users_notfound, users_followers = self.find_users_followers(
+                    users
+                )
+
+                context["users_found"] = json.dumps(users_found)
+                context["users_notfound"] = json.dumps(users_notfound)
+                context["users_followers"] = json.dumps(users_followers)
+
+            except Exception as error:
+                print(error)
+                context["status"] = 'error'
+                context["error"] = error
+
+        return context
+
+
 class Search_View(TemplateView):
     template_name = 'Features_App/Search_Template.html'
 
@@ -82,9 +137,6 @@ class Search_View(TemplateView):
 
                 context["csv_data"] = self.csv_data(tweets)
 
-            except tweepy.TweepError as error:
-                context["status"] = 'error'
-                context["error"] = error
             except (ValueError, TypeError) as error:
                 context["status"] = 'error'
                 context["error"] = 'Enter Values Properly'
@@ -105,7 +157,7 @@ class User_Info_View(TemplateView):
         # getting username
         username = self.request.GET.get('username', None)
 
-        if username == None or username == "":
+        if username in (None, ""):
             context["user_status"] = 'user_not_enter'
         else:
             context["user_status"] = 'user_enter'

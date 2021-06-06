@@ -1,0 +1,74 @@
+{% extends 'Core_Base_Template.html' %} {% load static %}
+
+<!-- Title -->
+{% block title %}
+<title>Users Comparison Page</title>
+{% endblock title %} {% block Core_Content %}
+
+<div class="container my-3 mb-5">
+	<form method="get">
+		<div class="mb-3">
+			<input
+				type="text"
+				name="users"
+				class="form-control"
+				placeholder="Enter Users"
+			/>
+		</div>
+	</form>
+
+	<div>
+		{% if status == "not_enter" %}
+
+		<h4 class="my-3 text-center">Enter users with comma separated</h4>
+
+		{% elif status == "error" %}
+
+		<h3 class="my-3 text-center">
+			<div>Error</div>
+			<div>{{ error }}</div>
+		</h3>
+
+		{% elif status == "enter" %}
+
+		<div class="my-3 text-center justify-content-center">
+			<h4 class="my-3">Comparing Users</h4>
+
+			<div class="col-md-6 mx-auto">
+				<canvas id="usersChart" width="400" height="400"></canvas>
+			</div>
+
+			{% if users_notfound.count > 0 %}
+
+			<div class="mt-5">
+				<div>{{ users_notfound }}</div>
+				<div>
+					There are no such users like this so there are not shown
+				</div>
+			</div>
+
+			{% endif %}
+		</div>
+
+		{% else %}
+
+		<h3>Something other happen</h3>
+
+		{% endif %}
+	</div>
+</div>
+
+{% endblock Core_Content %} {% block scripts %} {{ block.super }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+	let labels = {{ users_found|safe }};
+	let data = {{ users_followers|safe }};
+
+	console.log(labels);
+	console.log(data);
+</script>
+
+<script src="{% static 'js/compare_users.js' %}"></script>
+
+{% endblock scripts %}
