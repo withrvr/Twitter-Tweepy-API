@@ -1,13 +1,11 @@
-from django import template
 from django.views.generic import TemplateView
 from my_tweepy.config_tweepy import api, tweepy
 import json
 import requests
-# import copy
 
 
-class Contents_Hashtag_View(TemplateView):
-    template_name = 'Features_App/Contents_Hashtag_Template.html'
+class Search_View(TemplateView):
+    template_name = 'Features_App/Search_Template.html'
 
     def get_tweets_html(self, url, *args, **kwargs):
         twtjson = requests.get(

@@ -23,10 +23,10 @@
 /admin-panel/password_change/	django.contrib.admin.sites.password_change	admin:password_change
 /admin-panel/password_change/done/	django.contrib.admin.sites.password_change_done	admin:password_change_done
 /admin-panel/r/<int:content_type_id>/<path:object_id>/	django.contrib.contenttypes.views.shortcut	admin:view_on_site
-/contents-hashtag/	Features_App.views.Contents_Hashtag_View	Features_App:Contents-Hashtag-Page
 /home/	Core_App.views.Home_View	Core_App:Home-Page
 /ipsum/	Core_App.views.Lorem_Ipsum_View
 /lorem-ipsum/	Core_App.views.Lorem_Ipsum_View
 /lorem/	Core_App.views.Lorem_Ipsum_View	Core_App:Lorem-Ipsum-Page
 /loremipsum/	Core_App.views.Lorem_Ipsum_View
+/search/	Features_App.views.Search_View	Features_App:Search-Page
 /user-info/	Features_App.views.User_Info_View	Features_App:User-Info-Page
