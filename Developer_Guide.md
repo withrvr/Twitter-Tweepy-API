@@ -11,6 +11,7 @@
         TTI_ACCESS_TOKEN = "your_key_value"
         TTI_ACCESS_TOKEN_SECRET = "your_key_value"
         TTI_BEARER_TOKEN = "your_key_value"
+        TTI_DEBUG = "True or False"
         ```
 
 ## Dynamic Files ( does some stuff ) :
