@@ -4,9 +4,11 @@
 {% load static %} {% load tweet_tags %} {% load tweet_tojson %}
 
 <!-- Title -->
-{% block title %}
-<title>Contents Hashtag</title>
-{% endblock title %} {% block Core_Content %}
+{% block title %} {% if status == "enter" %}
+<title>{{ request.GET.search }} - Search</title>
+{% else %}
+<title>Search</title>
+{% endif %} {% endblock title %} {% block Core_Content %}
 
 <!-- stylesheets -->
 {% block stylesheets %} {{block.super }}
@@ -26,7 +28,7 @@
 					name="search"
 					type="text"
 					class="form-control"
-					placeholder="Search for hashtag"
+					placeholder="Search . . ."
 				/>
 			</div>
 			<div class="col-4">
@@ -52,11 +54,13 @@
 		<h3 class="my-3">Enter the Details</h3>
 
 		<div class="my-5">
-			<h4>How Search Work</h4>
+			<h4>Search by hashtag</h4>
 			<div>
 				<div>#hashtag --- will contain #hashtag in tweet</div>
-				<div>#hashtag and #hashtag --- both will be there</div>
-				<div>#hashtag or #hashtag --- atleast one will be there</div>
+				<div>#hashtag and #hashtag --- both #hashtag will be there</div>
+				<div>
+					#hashtag or #hashtag --- at least one #hashtag will be there
+				</div>
 			</div>
 		</div>
 
@@ -67,7 +71,17 @@
 			<div>{{ error }}</div>
 		</h3>
 
-		{% elif status == "enter" %} {% for tweet, tweet_json in data %}
+		{% elif status == "enter" %}
+		<hr />
+		<button
+			type="button"
+			class="btn btn-success btn-block w-100"
+			onclick='download("{{ csv_data|escapejs }}", "{{ request.GET.search }}-{{ request.GET.items }}-items.csv", "text/csv");'
+		>
+			Download Combine CSV of all tweets
+		</button>
+
+		{% for tweet, tweet_json in data %}
 
 		<hr />
 
@@ -91,7 +105,7 @@
 							class="btn btn-success"
 							onclick='download("{{tweet_json|escapejs}}", "{{ tweet.id }}-tweet-info.json", "text/json");'
 						>
-							Download JSON individul
+							Download JSON individual
 						</button>
 					</div>
 				</div>

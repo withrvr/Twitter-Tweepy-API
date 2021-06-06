@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from my_tweepy.config_tweepy import api, tweepy
 import json
 import requests
-import copy
+# import copy
 
 
 class Contents_Hashtag_View(TemplateView):
@@ -15,6 +15,51 @@ class Contents_Hashtag_View(TemplateView):
         twtparse = twtjson.json()
         twthtml = twtparse['html']
         return twthtml
+
+    def csv_data(self, tweets):
+
+        import pandas as pd
+        rows = [
+            [
+                tweet.created_at,
+                tweet.id,
+                tweet.full_text,
+                tweet.retweet_count,
+                tweet.favorite_count,
+                ",".join([hashtag["text"]
+                          for hashtag in tweet.entities["hashtags"]]),
+                tweet.user.id,
+                tweet.user.name,
+                tweet.user.screen_name,
+                tweet.user.followers_count,
+                tweet.user.friends_count,
+                tweet.user.verified,
+                tweet.user.statuses_count,
+            ]
+            for tweet in tweets
+        ]
+
+        cols = [
+            "created_at",
+            "id",
+            "text",
+            "retweet_count",
+            "likes",
+
+            "hashtags",
+
+            "user_id",
+            "user_name",
+            "user_screen_name",
+            "user_followers_count",
+            "user_friends_count",
+            "user_verified",
+            "user_no_of_tweets",
+        ]
+
+        csv_df = pd.DataFrame(rows, columns=cols)
+        csv_data = csv_df.to_csv()
+        return csv_data
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -30,19 +75,21 @@ class Contents_Hashtag_View(TemplateView):
                     api.search, q=search, lang="en", tweet_mode='extended'
                 ).items(int(items))
 
-                tweets_copy = copy.deepcopy(tweets)
+                tweets = list(tweets)
 
                 tweets_json = [json.dumps(tweet._json, indent=4)
-                               for tweet in tweets_copy]
+                               for tweet in tweets]
 
                 context["data"] = zip(tweets, tweets_json)
+
+                context["csv_data"] = self.csv_data(tweets)
 
             except tweepy.TweepError as error:
                 context["status"] = 'error'
                 context["error"] = error
             except (ValueError, TypeError) as error:
                 context["status"] = 'error'
-                context["error"] = 'Enter Details Properly'
+                context["error"] = 'Enter Values Properly'
             except Exception as error:
                 print(error)
                 context["status"] = 'error'
