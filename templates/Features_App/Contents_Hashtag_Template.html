@@ -1,0 +1,108 @@
+{% extends 'Core_Base_Template.html' %}
+
+<!-- load -->
+{% load static %} {% load tweet_tags %} {% load tweet_tojson %}
+
+<!-- Title -->
+{% block title %}
+<title>Contents Hashtag</title>
+{% endblock title %} {% block Core_Content %}
+
+<!-- stylesheets -->
+{% block stylesheets %} {{block.super }}
+<script
+	async
+	src="https://platform.twitter.com/widgets.js"
+	charset="utf-8"
+></script>
+<script src="{% static 'js/download_data.js' %}"></script>
+{% endblock %}
+
+<div class="container mt-3 mb-5 text-center">
+	<form method="GET" novalidate>
+		<div class="row mb-3">
+			<div class="col">
+				<input
+					name="search"
+					type="text"
+					class="form-control"
+					placeholder="Search for hashtag"
+				/>
+			</div>
+			<div class="col-4">
+				<input
+					name="items"
+					type="number"
+					class="form-control"
+					min="1"
+					placeholder="No. Tweet"
+				/>
+			</div>
+		</div>
+		<div class="d-flex align-items-end gap-2">
+			<button class="btn btn-success ms-auto" type="submit">
+				Show Tweets
+			</button>
+		</div>
+	</form>
+
+	<div class="mx-auto justify-content-center text-center">
+		{% if status == "not_enter" %}
+
+		<h3 class="my-3">Enter the Details</h3>
+
+		<div class="my-5">
+			<h4>How Search Work</h4>
+			<div>
+				<div>#hashtag --- will contain #hashtag in tweet</div>
+				<div>#hashtag and #hashtag --- both will be there</div>
+				<div>#hashtag or #hashtag --- atleast one will be there</div>
+			</div>
+		</div>
+
+		{% elif status == "error" %}
+
+		<h3 class="my-3">
+			<div>Error:</div>
+			<div>{{ error }}</div>
+		</h3>
+
+		{% elif status == "enter" %} {% for tweet, tweet_json in data %}
+
+		<hr />
+
+		<div class="card border-0 flex-fill">
+			<div class="row">
+				<div class="col">
+					<div class="card-img-top">
+						<div class="mdl-card__media">
+							{% autoescape off %}
+							<!-- tweet html format -->
+							{% tweet_tags tweet.user.screen_name tweet.id %}
+							<!-- tweet html format -->
+							{% endautoescape %}
+						</div>
+					</div>
+				</div>
+
+				<div class="col">
+					<div class="card-body">
+						<button
+							class="btn btn-success"
+							onclick='download("{{tweet_json|escapejs}}", "{{ tweet.id }}-tweet-info.json", "text/json");'
+						>
+							Download JSON individul
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% empty %}
+		<h3>No Tweets Found</h3>
+		{% endfor %} {% else %}
+		<h3>Something Other Happen</h3>
+		{% endif %}
+	</div>
+</div>
+{% endblock Core_Content %}

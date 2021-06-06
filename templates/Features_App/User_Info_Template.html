@@ -25,8 +25,11 @@
 	</form>
 	<div class="text-center">
 		{% if user_status == "user_not_enter" %}
+
 		<h3>Enter Username</h3>
+
 		{% elif user_status == "user_not_found" %}
+
 		<h3 class="my-3">
 			<div>Error:</div>
 			<div>{{ user_error }}</div>
@@ -87,20 +90,15 @@
 				type="button"
 				value="Download Json file"
 				class="btn btn-success"
-				onclick="onDownload()"
+				onclick='download("{{user_json|escapejs}}", "{{ user.screen_name }}-user-info.json", "text/json");'
 			/>
 		</div>
+		{% else %}
+		<h3>Something other happen</h3>
 		{% endif %}
 	</div>
 </div>
 
 {% block scripts %} {{ block.super }} {% if user_status == "user_enter" %}
 <script src="{% static 'js/download_data.js' %}"></script>
-<script type="text/javascript">
-	const user = "{{user_json|escapejs}}";
-
-	function onDownload() {
-		download(user, "{{ user.screen_name }}-user-info.json", "text/json");
-	}
-</script>
 {% endif %} {% endblock scripts %} {% endblock Core_Content %}
