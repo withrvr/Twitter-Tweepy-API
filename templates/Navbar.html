@@ -43,26 +43,39 @@
 					href="{% url 'Features_App:User-Info-Page' %}"
 					class="nav-link"
 				>
-					User Info
+					User-Info
 				</a>
 
 				<a href="{% url 'Features_App:Search-Page' %}" class="nav-link">
 					Search
 				</a>
 
-				<a
-					href="{% url 'Features_App:Compare-Users-Page' %}"
-					class="nav-link"
-				>
-					Compare Users
-				</a>
-
-				<a
-					href="{% url 'Features_App:Compare-Tweets-Page' %}"
-					class="nav-link"
-				>
-					Compare Tweets
-				</a>
+				<li class="nav-item dropdown">
+					<a
+						class="nav-link dropdown-toggle"
+						href="#"
+						id="choiceCompare"
+						role="button"
+						data-bs-toggle="dropdown"
+						aria-expanded="false"
+					>
+						Compare
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="choiceCompare">
+						<a
+							class="dropdown-item"
+							href="{% url 'Features_App:Compare-Users-Page' %}"
+						>
+							Users
+						</a>
+						<a
+							class="dropdown-item"
+							href="{% url 'Features_App:Compare-Tweets-Page' %}"
+						>
+							Tweets
+						</a>
+					</ul>
+				</li>
 			</div>
 		</div>
 	</div>

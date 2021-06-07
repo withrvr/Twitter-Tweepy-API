@@ -14,6 +14,10 @@ def parse_as_tags_array(somestring):
     return somearray
 
 
+class Choice_Compare_View(TemplateView):
+    template_name = 'Features_App/Choice_Compare_Template.html'
+
+
 class Compare_Tweets_View(TemplateView):
     template_name = 'Features_App/Compare_Tweets_Template.html'
 

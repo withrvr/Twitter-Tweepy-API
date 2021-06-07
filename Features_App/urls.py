@@ -3,6 +3,8 @@ from django.urls import path
 from .views import (
     User_Info_View,
     Search_View,
+
+    Choice_Compare_View,
     Compare_Users_View,
     Compare_Tweets_View,
 )
@@ -13,8 +15,9 @@ urlpatterns = [
     path('user-info/', User_Info_View.as_view(), name='User-Info-Page'),
     path('search/',
          Search_View.as_view(), name='Search-Page'),
-    path('compare-users/', Compare_Users_View.as_view(), name='Compare-Users-Page'),
-    path('compare-Tweets/', Compare_Tweets_View.as_view(),
+    path('compare/', Choice_Compare_View.as_view(), name='Compare-Page'),
+    path('compare/users/', Compare_Users_View.as_view(), name='Compare-Users-Page'),
+    path('compare/tweets/', Compare_Tweets_View.as_view(),
          name='Compare-Tweets-Page'),
 
 ]
