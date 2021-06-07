@@ -1,7 +1,7 @@
 {% load static %}
 <nav
 	class="
-		navbar navbar-expand-sm navbar-dark
+		navbar navbar-expand-md navbar-dark
 		bg-dark
 		sticky-top
 		justify-content-between
@@ -73,6 +73,34 @@
 							href="{% url 'Features_App:Compare-Tweets-Page' %}"
 						>
 							Tweets
+						</a>
+					</ul>
+				</li>
+
+				<li class="nav-item dropdown">
+					<a
+						class="nav-link dropdown-toggle"
+						href="#"
+						id="choiceCompare"
+						role="button"
+						data-bs-toggle="dropdown"
+						aria-expanded="false"
+					>
+						User Most Popular
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="choiceCompare">
+						<a
+							href="{% url 'Features_App:User-Most-Popular-Followers-Page' %}"
+							class="dropdown-item"
+						>
+							Followers
+						</a>
+
+						<a
+							href="{% url 'Features_App:User-Most-Popular-Following-Page' %}"
+							class="dropdown-item"
+						>
+							Following
 						</a>
 					</ul>
 				</li>

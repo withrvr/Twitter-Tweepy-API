@@ -23,7 +23,7 @@
 /admin-panel/password_change/	django.contrib.admin.sites.password_change	admin:password_change
 /admin-panel/password_change/done/	django.contrib.admin.sites.password_change_done	admin:password_change_done
 /admin-panel/r/<int:content_type_id>/<path:object_id>/	django.contrib.contenttypes.views.shortcut	admin:view_on_site
-/compare/	Features_App.views.Choice_Compare_View	Features_App:Compare-Page
+/compare/	Features_App.views.Compare_Choice_View	Features_App:Compare-Choice-Page
 /compare/tweets/	Features_App.views.Compare_Tweets_View	Features_App:Compare-Tweets-Page
 /compare/users/	Features_App.views.Compare_Users_View	Features_App:Compare-Users-Page
 /home/	Core_App.views.Home_View	Core_App:Home-Page
@@ -33,3 +33,6 @@
 /loremipsum/	Core_App.views.Lorem_Ipsum_View
 /search/	Features_App.views.Search_View	Features_App:Search-Page
 /user-info/	Features_App.views.User_Info_View	Features_App:User-Info-Page
+/user-most-popular/	Features_App.views.User_Most_Popular_Choice_View	Features_App:User-Most-Popular-Choice-Page
+/user-most-popular/followers/	Features_App.views.User_Most_Popular_Followers_View	Features_App:User-Most-Popular-Followers-Page
+/user-most-popular/following/	Features_App.views.User_Most_Popular_Following_View	Features_App:User-Most-Popular-Following-Page

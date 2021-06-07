@@ -4,6 +4,20 @@ import json
 import requests
 
 
+# ---------------------------- user-most-popular ------------------------------------------
+class User_Most_Popular_Choice_View(TemplateView):
+    template_name = 'Features_App/User_Most_Popular/Choice_Template.html'
+
+
+class User_Most_Popular_Followers_View(TemplateView):
+    template_name = 'Features_App/User_Most_Popular/Followers_Template.html'
+
+
+class User_Most_Popular_Following_View(TemplateView):
+    template_name = 'Features_App/User_Most_Popular/Following_Template.html'
+
+
+# ---------------------------- Compare_View ------------------------------------------
 def parse_as_tags_array(somestring):
     # remove spaces and split with ','
     somestring = somestring.replace(" ", "").split(",")
@@ -14,12 +28,12 @@ def parse_as_tags_array(somestring):
     return somearray
 
 
-class Choice_Compare_View(TemplateView):
-    template_name = 'Features_App/Choice_Compare_Template.html'
+class Compare_Choice_View(TemplateView):
+    template_name = 'Features_App/Compare/Choice_Template.html'
 
 
 class Compare_Tweets_View(TemplateView):
-    template_name = 'Features_App/Compare_Tweets_Template.html'
+    template_name = 'Features_App/Compare/Tweets_Template.html'
 
     def find_tweets_likes(self, tweets):
         tweets = parse_as_tags_array(tweets)
@@ -66,7 +80,7 @@ class Compare_Tweets_View(TemplateView):
 
 
 class Compare_Users_View(TemplateView):
-    template_name = 'Features_App/Compare_Users_Template.html'
+    template_name = 'Features_App/Compare/Users_Template.html'
 
     def find_users_followers(self, users):
         users = parse_as_tags_array(users)

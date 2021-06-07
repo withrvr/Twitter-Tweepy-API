@@ -1,0 +1,29 @@
+{% extends 'Core_Base_Template.html' %} {% block Core_Content %}
+
+<!-- Title -->
+{% block title %}
+<title>Choice User Most Popular Page</title>
+{% endblock title %}
+
+<div class="container my-3 mb-5 text-center justify-content-center">
+	<h3 class="my-3">Choice User Most Popular</h3>
+	<div class="col-md-6 mx-auto">
+		<div class="d-flex flex-column gap-2">
+			<a
+				href="{% url 'Features_App:User-Most-Popular-Followers-Page' %}"
+				class="p-2 btn btn-lg btn-success"
+			>
+				Followers
+			</a>
+
+			<a
+				href="{% url 'Features_App:User-Most-Popular-Following-Page' %}"
+				class="p-2 btn btn-lg btn-success"
+			>
+				Following
+			</a>
+		</div>
+	</div>
+</div>
+
+{% endblock Core_Content %}
