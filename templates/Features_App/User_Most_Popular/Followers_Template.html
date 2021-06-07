@@ -1,10 +1,87 @@
-{% extends 'Core_Base_Template.html' %} {% block Core_Content %}
+{% extends 'Core_Base_Template.html' %} {% load static %}
 
 <!-- Title -->
-{% block title %}
-<title>User Most Popular Followers</title>
-{% endblock title %}
+{% block title %}<title>User Most Popular Followers</title> {% endblock title %}
+{% block Core_Content %}
 
-<div class="container my-3 mb-5">Most Popolar Followers are . . .</div>
+<div class="container mt-3 mb-5">
+	<form method="GET">
+		<div class="input-group mb-3">
+			<span class="input-group-text" id="twitter-user-text">
+				twitter.com/
+			</span>
+			<input
+				name="user"
+				type="text"
+				class="form-control"
+				aria-describedby="twitter-user-text"
+				placeholder="username"
+			/>
+		</div>
+	</form>
+	<div class="text-center">
+		{% if status == "not_enter" %}
+
+		<h3>Enter Username</h3>
+		<div>
+			<div>Shows you the most popular person</div>
+			<div>In User <strong>Followers</strong> list</div>
+		</div>
+
+		{% elif status == "error" %}
+
+		<h3 class="my-3">
+			<div>Error:</div>
+			<div>{{ error }}</div>
+		</h3>
+
+		{% elif status == "enter" %}
+
+		<div class="my-3 text-center justify-content-center">
+			<h4 class="my-3">Users Most Popular Followers</h4>
+
+			<div class="col-md-6 mx-auto">
+				<canvas id="followersChart" width="400" height="400"></canvas>
+			</div>
+
+			<div class="table-responsive col-md-6 mx-auto mt-5">
+				<table class="table table-hover">
+					<tr>
+						<th scope="col">Followers</th>
+						<th scope="col">Username</th>
+					</tr>
+					{% for followers_count, screen_name in followers %}
+						<tr>
+							<th scope="col">{{ followers_count }}</th>
+							<th scope="col">
+								<a
+									href="https://twitter.com/{{ screen_name }}"
+									target="_blank"
+								>
+									@{{ screen_name }}
+								</a>
+							</th>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+
+		{% else %}
+
+		<h3>Something other happen</h3>
+
+		{% endif %}
+	</div>
+</div>
 
 {% endblock Core_Content %}
+<!-- scripts -->
+{% block scripts %} {{ block.super }} {% if status == "enter" %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+	let labels = {{ screen_name_json|safe }};
+	let data = {{ followers_count_json|safe }};
+</script>
+<script src="{% static 'js/User_Most_Popular/followers.js' %}"></script>
+{% endif %} {% endblock scripts %}

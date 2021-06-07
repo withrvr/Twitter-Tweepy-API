@@ -12,9 +12,87 @@ class User_Most_Popular_Choice_View(TemplateView):
 class User_Most_Popular_Followers_View(TemplateView):
     template_name = 'Features_App/User_Most_Popular/Followers_Template.html'
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        # getting username
+        user = self.request.GET.get('user', None)
+
+        if user in (None, ""):
+            context["status"] = 'not_enter'
+        else:
+            context["status"] = 'enter'
+            try:
+                followers_response = tweepy.Cursor(api.followers, user).items()
+
+                screen_name = []
+                followers_count = []
+
+                for follower in followers_response:
+                    screen_name.append(follower.screen_name)
+                    followers_count.append(follower.followers_count)
+
+                context["screen_name_json"] = json.dumps(screen_name)
+                context["followers_count_json"] = json.dumps(followers_count)
+
+                followers = list(zip(followers_count, screen_name))
+                sorted_followers = sorted(
+                    followers, key=lambda follower: (
+                        follower[0], follower[1]
+                    ),
+                    reverse=True
+                )
+                print(sorted_followers)
+                context["followers"] = sorted_followers
+
+            except Exception as error:
+                context["status"] = 'error'
+                context["error"] = error
+
+        return context
+
 
 class User_Most_Popular_Following_View(TemplateView):
     template_name = 'Features_App/User_Most_Popular/Following_Template.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        # getting username
+        user = self.request.GET.get('user', None)
+
+        if user in (None, ""):
+            context["status"] = 'not_enter'
+        else:
+            context["status"] = 'enter'
+            try:
+                following_response = tweepy.Cursor(api.friends, user).items()
+
+                screen_name = []
+                followers_count = []
+
+                for follow in following_response:
+                    screen_name.append(follow.screen_name)
+                    followers_count.append(follow.followers_count)
+
+                context["screen_name_json"] = json.dumps(screen_name)
+                context["followers_count_json"] = json.dumps(followers_count)
+
+                following = list(zip(followers_count, screen_name))
+                sorted_following = sorted(
+                    following, key=lambda follow: (
+                        follow[0], follow[1]
+                    ),
+                    reverse=True
+                )
+                print(sorted_following)
+                context["following"] = sorted_following
+
+            except Exception as error:
+                context["status"] = 'error'
+                context["error"] = error
+
+        return context
 
 
 # ---------------------------- Compare_View ------------------------------------------
