@@ -2,7 +2,7 @@
 
 <!-- Title -->
 {% block title %}
-<title>Users Comparison Page</title>
+<title>Tweets Comparison Page</title>
 {% endblock title %} {% block Core_Content %}
 
 <div class="container my-3 mb-5">
@@ -10,9 +10,9 @@
 		<div class="mb-3">
 			<input
 				type="text"
-				name="users"
+				name="tweets"
 				class="form-control"
-				placeholder="Enter Users"
+				placeholder="Enter tweets"
 			/>
 		</div>
 	</form>
@@ -20,7 +20,7 @@
 	<div>
 		{% if status == "not_enter" %}
 
-		<h4 class="my-3 text-center">Enter users with comma separated</h4>
+		<h4 class="my-3 text-center">Enter Tweets id with comma separated</h4>
 
 		{% elif status == "error" %}
 
@@ -32,10 +32,10 @@
 		{% elif status == "enter" %}
 
 		<div class="my-3 text-center justify-content-center">
-			<h4 class="my-3">Comparing Users</h4>
+			<h4 class="my-3">Comparing Tweets</h4>
 
 			<div class="col-md-6 mx-auto">
-				<canvas id="usersChart" width="400" height="400"></canvas>
+				<canvas id="tweetsChart" width="400" height="400"></canvas>
 			</div>
 		</div>
 
@@ -52,8 +52,8 @@
 {% if status == "enter" %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-	let labels = {{ users_found|safe }};
-	let data = {{ users_followers|safe }};
+	let labels = {{ tweets_found|safe }};
+	let data = {{ tweets_followers|safe }};
 </script>
-<script src="{% static 'js/compare_users.js' %}"></script>
+<script src="{% static 'js/compare_tweets.js' %}"></script>
 {% endif %} {% endblock scripts %}

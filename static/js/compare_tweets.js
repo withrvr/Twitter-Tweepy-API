@@ -1,11 +1,11 @@
-let ctx = document.getElementById("usersChart").getContext("2d");
+let ctx = document.getElementById("tweetsChart").getContext("2d");
 let myChart = new Chart(ctx, {
 	type: "bar",
 	data: {
 		labels: labels,
 		datasets: [
 			{
-				label: "Users Comparison Graph",
+				label: "Tweets Comparison Graph",
 				data: data,
 				backgroundColor: [
 					"rgba(255, 99, 132, 0.2)",

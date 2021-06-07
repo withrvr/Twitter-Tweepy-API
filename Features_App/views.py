@@ -4,20 +4,68 @@ import json
 import requests
 
 
+def parse_as_tags_array(somestring):
+    # remove spaces and split with ','
+    somestring = somestring.replace(" ", "").split(",")
+    # remove black string if content in the array.. ex ['', '', ]
+    somearray = ' '.join(somestring).split()
+    # remove dupicate values
+    somearray = list(set(somearray))
+    return somearray
+
+
+class Compare_Tweets_View(TemplateView):
+    template_name = 'Features_App/Compare_Tweets_Template.html'
+
+    def find_tweets_likes(self, tweets):
+        tweets = parse_as_tags_array(tweets)
+
+        tweets_found = []
+        tweets_notfound = []
+        tweets_likes = []
+
+        for tweet in tweets:
+            try:
+                tweet_responce = api.get_status(tweet)._json
+                tweets_found.append(
+                    f'{tweet_responce["user"]["screen_name"]} - {tweet_responce["id"]}'
+                )
+                tweets_likes.append(tweet_responce["favorite_count"])
+            except:
+                tweets_notfound.append(tweet)
+
+        return tweets_found, tweets_notfound, tweets_likes
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        tweets = self.request.GET.get('tweets', None)
+
+        if tweets in (None, ""):
+            context["status"] = 'not_enter'
+        else:
+            context["status"] = 'enter'
+            try:
+                tweets_found, tweets_notfound, tweets_likes = self.find_tweets_likes(
+                    tweets
+                )
+
+                context["tweets_found"] = json.dumps(tweets_found)
+                context["tweets_notfound"] = json.dumps(tweets_notfound)
+                context["tweets_followers"] = json.dumps(tweets_likes)
+
+            except Exception as error:
+                print(error)
+                context["status"] = 'error'
+                context["error"] = error
+
+        return context
+
+
 class Compare_Users_View(TemplateView):
     template_name = 'Features_App/Compare_Users_Template.html'
 
-    def parse_as_tags_array(self, somestring):
-        # remove spaces and split with ','
-        somestring = somestring.replace(" ", "").split(",")
-        # remove black string if content in the array.. ex ['', '', ]
-        somearray = ' '.join(somestring).split()
-        # remove dupicate values
-        somearray = list(set(somearray))
-        return somearray
-
     def find_users_followers(self, users):
-        users = self.parse_as_tags_array(users)
+        users = parse_as_tags_array(users)
 
         users_found = []
         users_notfound = []
