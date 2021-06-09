@@ -5,6 +5,11 @@
 <title>Users Comparison Page</title>
 {% endblock title %} {% block Core_Content %}
 
+<!-- stylesheets -->
+{% block stylesheets %} {{block.super }}
+<script src="{% static 'js/download_data.js' %}"></script>
+{% endblock %}
+
 <div class="container my-3 mb-5">
 	<form method="get">
 		<div class="mb-3">
@@ -36,6 +41,14 @@
 
 			<div class="col-md-6 mx-auto">
 				<canvas id="usersChart" width="400" height="400"></canvas>
+
+				<button
+					type="button"
+					class="btn btn-success mt-3"
+					onclick='download("{{ csv_data|escapejs }}", "comaparing-users.csv", "text/csv");'
+				>
+					Download Data in CSV format
+				</button>
 			</div>
 		</div>
 
@@ -52,8 +65,10 @@
 {% if status == "enter" %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-	let labels = {{ users_found|safe }};
-	let data = {{ users_followers|safe }};
+	let users_found = {{ users_found|safe }};
+	let users_followers = {{ users_followers|safe }};
+	let users_following = {{ users_following|safe }}
+	let users_total_tweets = {{ users_total_tweets|safe }}
 </script>
 <script src="{% static 'js/Compare/users.js' %}"></script>
 {% endif %} {% endblock scripts %}

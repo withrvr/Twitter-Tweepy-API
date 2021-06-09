@@ -76,7 +76,7 @@
 		<button
 			type="button"
 			class="btn btn-success btn-block w-100"
-			onclick='download("{{ csv_data|escapejs }}", "{{ request.GET.search }}-{{ request.GET.items }}-items.csv", "text/csv");'
+			onclick='download("{{ csv_data|escapejs }}", "{{ request.GET.search }}-items.csv", "text/csv");'
 		>
 			Download Combine CSV of all tweets
 		</button>

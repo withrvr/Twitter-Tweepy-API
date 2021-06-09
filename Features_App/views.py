@@ -1,10 +1,22 @@
 from django.views.generic import TemplateView
+from numpy.matrixlib.defmatrix import matrix
 from my_tweepy.config_tweepy import api, tweepy
 import json
 import requests
 
 
+def get_csv_format(rows, cols):
+    # converting to make csv file data
+    import numpy
+    import pandas as pd
+    return pd.DataFrame(
+        numpy.transpose(rows),
+        columns=cols,
+    ).to_csv()
+
 # ---------------------------- user-most-popular ------------------------------------------
+
+
 class User_Most_Popular_Choice_View(TemplateView):
     template_name = 'Features_App/User_Most_Popular/Choice_Template.html'
 
@@ -118,19 +130,40 @@ class Compare_Tweets_View(TemplateView):
 
         tweets_found = []
         tweets_notfound = []
+
         tweets_likes = []
+        tweets_retweets = []
+
+        tweets_users = []
+        tweets_id = []
 
         for tweet in tweets:
             try:
                 tweet_responce = api.get_status(tweet)._json
-                tweets_found.append(
-                    f'{tweet_responce["user"]["screen_name"]} - {tweet_responce["id"]}'
-                )
+
+                user = tweet_responce["user"]["screen_name"]
+                id = tweet_responce["id"]
+                tweets_found.append(f'{user} - {id}')
+
                 tweets_likes.append(tweet_responce["favorite_count"])
+                tweets_retweets.append(tweet_responce["retweet_count"])
+
+                tweets_users.append(user)
+                tweets_id.append(id)
             except:
                 tweets_notfound.append(tweet)
 
-        return tweets_found, tweets_notfound, tweets_likes
+        csv_data = get_csv_format(
+            [
+                tweets_users,
+                tweets_id,
+                tweets_likes,
+                tweets_retweets,
+            ],
+            ["username", "id", "likes", "retweets"]
+        )
+
+        return tweets_found, tweets_notfound, tweets_likes, tweets_retweets, csv_data
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -141,13 +174,15 @@ class Compare_Tweets_View(TemplateView):
         else:
             context["status"] = 'enter'
             try:
-                tweets_found, tweets_notfound, tweets_likes = self.find_tweets_likes(
+                tweets_found, tweets_notfound, tweets_likes, tweets_retweets, csv_data = self.find_tweets_likes(
                     tweets
                 )
 
                 context["tweets_found"] = json.dumps(tweets_found)
                 context["tweets_notfound"] = json.dumps(tweets_notfound)
-                context["tweets_followers"] = json.dumps(tweets_likes)
+                context["tweets_likes"] = json.dumps(tweets_likes)
+                context["tweets_retweets"] = json.dumps(tweets_retweets)
+                context["csv_data"] = csv_data
 
             except Exception as error:
                 print(error)
@@ -166,16 +201,30 @@ class Compare_Users_View(TemplateView):
         users_found = []
         users_notfound = []
         users_followers = []
+        users_following = []
+        users_total_tweets = []
 
         for user in users:
             try:
                 user_responce = api.get_user(user)._json
                 users_found.append(user_responce["screen_name"])
                 users_followers.append(user_responce["followers_count"])
+                users_following.append(user_responce["friends_count"])
+                users_total_tweets.append(user_responce["statuses_count"])
             except:
                 users_notfound.append(user)
 
-        return users_found, users_notfound, users_followers
+        csv_data = get_csv_format(
+            [
+                users_found,
+                users_followers,
+                users_following,
+                users_total_tweets,
+            ],
+            ["username", "followers", "following", "total_tweets"]
+        )
+
+        return users_found, users_notfound, users_followers, users_following, users_total_tweets, csv_data
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -187,13 +236,16 @@ class Compare_Users_View(TemplateView):
             context["status"] = 'enter'
             try:
 
-                users_found, users_notfound, users_followers = self.find_users_followers(
+                users_found, users_notfound, users_followers, users_following, users_total_tweets, csv_data = self.find_users_followers(
                     users
                 )
 
                 context["users_found"] = json.dumps(users_found)
                 context["users_notfound"] = json.dumps(users_notfound)
                 context["users_followers"] = json.dumps(users_followers)
+                context["users_following"] = json.dumps(users_following)
+                context["users_total_tweets"] = json.dumps(users_total_tweets)
+                context["csv_data"] = csv_data
 
             except Exception as error:
                 print(error)
