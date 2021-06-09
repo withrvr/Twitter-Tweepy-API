@@ -5,14 +5,17 @@ import json
 import requests
 
 
-def get_csv_format(rows, cols):
-    # converting to make csv file data
-    import numpy
+# converting to make csv file from the given data
+def get_csv_format(rows, cols, transpose=True):
     import pandas as pd
+    if transpose:
+        import numpy
+        rows = numpy.transpose(rows),
+
     return pd.DataFrame(
-        numpy.transpose(rows),
+        rows,
         columns=cols,
-    ).to_csv()
+    ).to_csv(index=False)
 
 # ---------------------------- user-most-popular ------------------------------------------
 
@@ -47,15 +50,21 @@ class User_Most_Popular_Followers_View(TemplateView):
                 context["screen_name_json"] = json.dumps(screen_name)
                 context["followers_count_json"] = json.dumps(followers_count)
 
-                followers = list(zip(followers_count, screen_name))
-                sorted_followers = sorted(
-                    followers, key=lambda follower: (
+                unsorted_list = list(zip(followers_count, screen_name))
+                sorted_list = sorted(
+                    unsorted_list, key=lambda follower: (
                         follower[0], follower[1]
                     ),
                     reverse=True
                 )
-                print(sorted_followers)
-                context["followers"] = sorted_followers
+                context["sorted_list"] = sorted_list
+
+                csv_data = get_csv_format(
+                    sorted_list,
+                    ["followers", "username"],
+                    transpose=False
+                )
+                context["csv_data"] = csv_data
 
             except Exception as error:
                 context["status"] = 'error'
@@ -90,15 +99,21 @@ class User_Most_Popular_Following_View(TemplateView):
                 context["screen_name_json"] = json.dumps(screen_name)
                 context["followers_count_json"] = json.dumps(followers_count)
 
-                following = list(zip(followers_count, screen_name))
-                sorted_following = sorted(
-                    following, key=lambda follow: (
+                unsorted_list = list(zip(followers_count, screen_name))
+                sorted_list = sorted(
+                    unsorted_list, key=lambda follow: (
                         follow[0], follow[1]
                     ),
                     reverse=True
                 )
-                print(sorted_following)
-                context["following"] = sorted_following
+                context["sorted_list"] = sorted_list
+
+                csv_data = get_csv_format(
+                    sorted_list,
+                    ["followers", "username"],
+                    transpose=False
+                )
+                context["csv_data"] = csv_data
 
             except Exception as error:
                 context["status"] = 'error'

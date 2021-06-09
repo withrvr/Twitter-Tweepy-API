@@ -4,6 +4,11 @@
 {% block title %}<title>User Most Popular Following</title> {% endblock title %}
 {% block Core_Content %}
 
+<!-- stylesheets -->
+{% block stylesheets %} {{block.super }}
+<script src="{% static 'js/download_data.js' %}"></script>
+{% endblock %}
+
 <div class="container mt-3 mb-5">
 	<form method="GET">
 		<div class="input-group mb-3">
@@ -27,6 +32,7 @@
 		<div>
 			<div>Shows you the most popular person</div>
 			<div>User is <strong>Following</strong> to</div>
+			<div>If Following are more that 100, It takes some time so be patient</div>
 		</div>
 
 		{% elif status == "error" %}
@@ -43,15 +49,25 @@
 
 			<div class="col-md-6 mx-auto">
 				<canvas id="followingChart" width="400" height="400"></canvas>
+				
+				<button
+					type="button"
+					class="btn btn-success my-5"
+					onclick='download("{{ csv_data|escapejs }}", "most-followed-in-{{request.GET.user}}-following.csv", "text/csv");'
+				>
+					Download Data in CSV format
+				</button>
 			</div>
 
-			<div class="table-responsive col-md-6 mx-auto mt-5">
+			</div>
+
+			<div class="table-responsive col-md-6 mx-auto">
 				<table class="table table-hover">
 					<tr>
 						<th scope="col">Followers</th>
 						<th scope="col">Username</th>
 					</tr>
-					{% for followers_count, screen_name in following %}
+					{% for followers_count, screen_name in sorted_list %}
 						<tr>
 							<th scope="col">{{ followers_count }}</th>
 							<th scope="col">
