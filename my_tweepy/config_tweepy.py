@@ -8,11 +8,11 @@ from decouple import config
 # taking my keys form the py file
 # so that i can change at any time
 # and its known to me only
-CONSUMER_KEY = config('TTI_CONSUMER_KEY')
-CONSUMER_SECRET = config('TTI_CONSUMER_SECRET')
-ACCESS_TOKEN = config('TTI_ACCESS_TOKEN')
-ACCESS_TOKEN_SECRET = config('TTI_ACCESS_TOKEN_SECRET')
-BEARER_TOKEN = config('TTI_BEARER_TOKEN')
+CONSUMER_KEY = config('CONSUMER_KEY')
+CONSUMER_SECRET = config('CONSUMER_SECRET')
+ACCESS_TOKEN = config('ACCESS_TOKEN')
+ACCESS_TOKEN_SECRET = config('ACCESS_TOKEN_SECRET')
+BEARER_TOKEN = config('BEARER_TOKEN')
 
 # create authentication for accessing Twitter
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
