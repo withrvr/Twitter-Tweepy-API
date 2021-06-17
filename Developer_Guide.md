@@ -4,15 +4,8 @@
 
 -   [config_tweepy.py](./my_tweepy/config_tweepy.py)
     -   connect to twitter api using keys and creatig api object
--   Set this as environment variables
-    -   ```
-        TTI_CONSUMER_KEY = "your_key_value"
-        TTI_CONSUMER_SECRET = "your_key_value"
-        TTI_ACCESS_TOKEN = "your_key_value"
-        TTI_ACCESS_TOKEN_SECRET = "your_key_value"
-        TTI_BEARER_TOKEN = "your_key_value"
-        TTI_DEBUG = "True or False"
-        ```
+-   [Set this as environment variables](./.env_file)
+    
 
 ## Dynamic Files ( does some stuff ) :
 
